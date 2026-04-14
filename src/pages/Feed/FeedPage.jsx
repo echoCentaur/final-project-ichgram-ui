@@ -1,13 +1,12 @@
 import { useState, useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
 import axios from '../../api/axios'
 
 export default function FeedPage() {
     const [posts, setPosts] = useState([])
     const [loading, setLoading] = useState(true)
-    const { user, logout } = useAuth()
-    const navigate = useNavigate()
+    const { user } = useAuth()
 
     useEffect(() => {
         fetchPosts()
@@ -22,11 +21,6 @@ export default function FeedPage() {
         } finally {
             setLoading(false)
         }
-    }
-
-    const handleLogout = () => {
-        logout()
-        navigate('/login')
     }
 
     const handleLike = async (postId) => {
@@ -46,32 +40,7 @@ export default function FeedPage() {
 
     return (
         <div className="bg-gray-50 min-h-screen">
-
-            {/* NAV */}
-            <nav className="bg-white border-b border-gray-200 fixed top-0 w-full z-10">
-                <div className="max-w-5xl mx-auto px-4 h-14 flex items-center justify-between">
-                    <h1 className="text-2xl font-bold" style={{ fontFamily: 'cursive' }}>
-                        ICHgram
-                    </h1>
-                    <div className="flex items-center gap-4">
-                        <Link
-                            to={`/profile/${user?.id}`}
-                            className="text-sm font-semibold hover:text-gray-500"
-                        >
-                            {user?.username}
-                        </Link>
-                        <button
-                            onClick={handleLogout}
-                            className="text-sm text-red-500 hover:text-red-600"
-                        >
-                            Выйти
-                        </button>
-                    </div>
-                </div>
-            </nav>
-
-            {/* Content */}
-            <div className="max-w-lg mx-auto pt-20 pb-10 px-4">
+            <div className="max-w-lg mx-auto pt-6 pb-10 px-4">
 
                 {posts.length === 0 ? (
                     <div className="text-center text-gray-500 mt-10">
@@ -82,7 +51,7 @@ export default function FeedPage() {
                     posts.map(post => (
                         <div key={post._id} className="bg-white border border-gray-200 rounded mb-4">
 
-                            {/* post header */}
+                            {/* Шапка поста */}
                             <div className="flex items-center p-3">
                                 <div className="w-8 h-8 rounded-full bg-gray-200 overflow-hidden mr-3">
                                     {post.author?.profile_image ? (
@@ -105,7 +74,7 @@ export default function FeedPage() {
                                 </Link>
                             </div>
 
-                            {/* Post photo */}
+                            {/* Фото */}
                             {post.image && (
                                 <img
                                     src={post.image}
@@ -114,7 +83,7 @@ export default function FeedPage() {
                                 />
                             )}
 
-                            {/* Buttons */}
+                            {/* Кнопки */}
                             <div className="p-3">
                                 <button
                                     onClick={() => handleLike(post._id)}
@@ -123,7 +92,6 @@ export default function FeedPage() {
                                     🤍
                                 </button>
 
-                                {/* Post text */}
                                 {post.text && (
                                     <p className="text-sm mt-2">
                                         <span className="font-semibold mr-1">
