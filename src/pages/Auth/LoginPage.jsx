@@ -32,13 +32,11 @@ export default function LoginPage() {
         <div className="flex items-center justify-center min-h-screen bg-gray-50">
             <div className="w-full max-w-sm">
 
-
                 <div className="bg-white border border-gray-200 rounded p-10 mb-3">
                     <h1 className="text-4xl font-bold text-center mb-8"
                         style={{ fontFamily: 'cursive' }}>
                         ICHgram
                     </h1>
-
 
                     <form onSubmit={handleSubmit} className="space-y-2">
                         <input
@@ -69,23 +67,35 @@ export default function LoginPage() {
                         </button>
                     </form>
 
-
+                    {/* Разделитель */}
                     <div className="flex items-center my-4">
                         <div className="flex-1 border-t border-gray-300"></div>
                         <span className="px-4 text-gray-500 text-sm font-semibold">ИЛИ</span>
                         <div className="flex-1 border-t border-gray-300"></div>
                     </div>
-                </div>
 
+                    {/* Кнопка Google */}
 
-                <div className="bg-white border border-gray-200 rounded p-5 text-center text-sm">
-                    Нет аккаунта?{' '}
-                    <Link to="/register" className="text-blue-500 font-semibold">
-                        Зарегистрироваться
-                    </Link>
-                </div>
-
+                    <a href="http://localhost:8008/api/auth/google"
+                    className="w-full flex items-center justify-center gap-2 border border-gray-300 rounded py-2 text-sm font-semibold hover:bg-gray-50"
+                    >
+                    <img
+                        src="https://www.google.com/favicon.ico"
+                        alt="Google"
+                        className="w-4 h-4"
+                    />
+                    Войти через Google
+                </a>
             </div>
+
+            <div className="bg-white border border-gray-200 rounded p-5 text-center text-sm">
+                Нет аккаунта?{' '}
+                <Link to="/register" className="text-blue-500 font-semibold">
+                    Зарегистрироваться
+                </Link>
+            </div>
+
         </div>
-    )
+</div>
+)
 }

@@ -9,6 +9,7 @@ import SearchPage from './pages/Search/SearchPage'
 import Layout from './components/Layout/Layout'
 import ExplorePage from './pages/Explore/ExplorePage'
 import AIPage from './pages/AI/AIPage'
+import GoogleSuccessPage from './pages/Auth/GoogleSuccessPage'
 
 
 const PrivateRoute = ({ children }) => {
@@ -42,6 +43,7 @@ function AppRoutes() {
             <Route path="/login" element={
                 <PublicRoute><LoginPage /></PublicRoute>
             } />
+            <Route path="/auth/google/success" element={<GoogleSuccessPage />} />
             <Route path="/register" element={
                 <PublicRoute><RegisterPage /></PublicRoute>
             } />
