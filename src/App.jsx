@@ -4,6 +4,11 @@ import LoginPage from './pages/Auth/LoginPage'
 import RegisterPage from './pages/Auth/RegisterPage'
 import FeedPage from './pages/Feed/FeedPage'
 import ProfilePage from './pages/Profile/ProfilePage'
+import CreatePostPage from './pages/Post/CreatePostPage'
+import SearchPage from './pages/Search/SearchPage'
+import Layout from './components/Layout/Layout'
+import ExplorePage from './pages/Explore/ExplorePage'
+import AIPage from './pages/AI/AIPage'
 
 
 const PrivateRoute = ({ children }) => {
@@ -15,7 +20,7 @@ const PrivateRoute = ({ children }) => {
         </div>
     )
 
-    return user ? children : <Navigate to="/login" />
+    return user ? <Layout>{children}</Layout> : <Navigate to="/login" />
 }
 
 
@@ -45,6 +50,18 @@ function AppRoutes() {
             } />
             <Route path="/profile/:id" element={
                 <PrivateRoute><ProfilePage /></PrivateRoute>
+            } />
+            <Route path="/create" element={
+                <PrivateRoute><CreatePostPage /></PrivateRoute>
+            } />
+            <Route path="/search" element={
+                <PrivateRoute><SearchPage /></PrivateRoute>
+            } />
+            <Route path="/explore" element={
+                <PrivateRoute><ExplorePage /></PrivateRoute>
+            } />
+            <Route path="/ai" element={
+                <PrivateRoute><AIPage /></PrivateRoute>
             } />
         </Routes>
     )
