@@ -44,7 +44,7 @@ export default function Sidebar() {
         setSearchResults([])
     }
 
-    // На мобильном всегда узкий (только иконки), на десктопе — полный если поиск не открыт
+
     const isNarrow = searchOpen
 
     return (
@@ -52,14 +52,14 @@ export default function Sidebar() {
             <div className={`fixed left-0 top-0 h-full bg-white border-r border-gray-200 flex flex-col p-4 z-20 transition-all duration-300
                 w-16 md:${isNarrow ? 'w-20' : 'w-64'}`}>
 
-                {/* Логотип — только на десктопе полный */}
+
                 <Link to="/" className="mb-8 mt-2 px-1 block">
                     <img
                         src={bannerImg}
                         alt="ICHgram"
                         className={`object-contain hidden md:block ${isNarrow ? 'h-8' : 'h-10'}`}
                     />
-                    {/* На мобильном — маленький логотип */}
+
                     <img
                         src={bannerImg}
                         alt="ICHgram"
@@ -67,7 +67,7 @@ export default function Sidebar() {
                     />
                 </Link>
 
-                {/* Навигация */}
+
                 <nav className="flex flex-col gap-1 flex-1">
                     <Link to="/"
                           className={`flex items-center gap-4 px-3 py-3 rounded-lg hover:bg-gray-50 ${isActive('/') ? 'font-bold' : ''}`}>
@@ -113,7 +113,7 @@ export default function Sidebar() {
                     </Link>
                 </nav>
 
-                {/* Выход */}
+
                 <button
                     onClick={handleLogout}
                     className="flex items-center gap-4 px-3 py-3 rounded-lg hover:bg-gray-50 text-left w-full mb-2">
@@ -122,7 +122,7 @@ export default function Sidebar() {
                 </button>
             </div>
 
-            {/* Панель поиска */}
+
             {searchOpen && (
                 <div className="fixed left-16 md:left-20 top-0 h-full w-72 md:w-80 bg-white border-r border-gray-200 z-10 shadow-lg">
 

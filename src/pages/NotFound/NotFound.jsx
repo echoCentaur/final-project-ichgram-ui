@@ -6,7 +6,7 @@ export default function NotFound() {
         <div className="flex min-h-screen bg-gray-50 items-center justify-center px-4">
             <div className="flex items-center w-full max-w-3xl" style={{ gap: '40px' }}>
 
-                {/* Картинка телефонов — слева */}
+
                 <div className="hidden lg:block flex-1">
                     <img
                         src={phonesImg}
@@ -15,7 +15,7 @@ export default function NotFound() {
                     />
                 </div>
 
-                {/* Текст справа */}
+
                 <div className="flex-1">
                     <h1 className="text-3xl font-bold text-gray-900 mb-4">
                         Oops! Page Not Found<br />(404 Error)

@@ -5,7 +5,7 @@ export default function Layout({ children }) {
     return (
         <div className="flex min-h-screen">
             <Sidebar />
-            {/* ml-16 на мобильном, ml-64 на десктопе */}
+
             <div className="ml-16 md:ml-64 flex-1 flex flex-col min-h-screen">
                 <main className="flex-1">
                     {children}

@@ -52,7 +52,7 @@ export default function SearchPage() {
         <div className="bg-gray-50 min-h-screen">
             <div className="max-w-lg mx-auto pt-6 pb-10 px-4">
 
-                {/* Поиск */}
+
                 <div className="bg-white border border-gray-200 rounded mb-4 p-3">
                     <input
                         type="text"
@@ -63,7 +63,7 @@ export default function SearchPage() {
                     />
                 </div>
 
-                {/* Вкладки */}
+
                 <div className="flex border-b border-gray-300 mb-4">
                     <button
                         onClick={() => handleTabChange('users')}
@@ -83,7 +83,7 @@ export default function SearchPage() {
                     </button>
                 </div>
 
-                {/* Результаты поиска */}
+
                 {tab === 'users' && (
                     <div>
                         {loading && (
@@ -123,7 +123,7 @@ export default function SearchPage() {
                     </div>
                 )}
 
-                {/* Explore */}
+
                 {tab === 'explore' && (
                     <div>
                         {loading && (

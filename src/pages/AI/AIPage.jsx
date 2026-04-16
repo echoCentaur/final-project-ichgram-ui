@@ -60,7 +60,7 @@ export default function AIPage() {
     return (
         <div className="flex flex-col h-screen bg-gray-50">
 
-            {/* Шапка */}
+
             <div className="bg-white border-b border-gray-200 px-6 py-4 flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center">
                     <Bot size={20} className="text-white" />
@@ -71,7 +71,7 @@ export default function AIPage() {
                 </div>
             </div>
 
-            {/* Сообщения */}
+
             <div className="flex-1 overflow-y-auto px-4 py-4 space-y-4">
                 {messages.map((msg, i) => (
                     <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
@@ -108,7 +108,7 @@ export default function AIPage() {
                 <div ref={bottomRef} />
             </div>
 
-            {/* Быстрые подсказки */}
+
             <div className="px-4 py-2 flex gap-2 overflow-x-auto">
                 {['Напиши подпись к фото', 'Придумай хештеги', 'Идеи для поста'].map(hint => (
                     <button
@@ -121,7 +121,7 @@ export default function AIPage() {
                 ))}
             </div>
 
-            {/* Поле ввода */}
+
             <div className="bg-white border-t border-gray-200 px-4 py-3 flex items-end gap-3">
                 <textarea
                     value={input}

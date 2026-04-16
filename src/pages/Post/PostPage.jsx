@@ -148,12 +148,12 @@ export default function PostPage() {
                         )}
                     </div>
 
-                    {/* Фото */}
+
                     {post.image && (
                         <img src={post.image} alt="post" className="w-full" />
                     )}
 
-                    {/* Действия */}
+
                     <div className="p-3">
                         <div className="flex items-center gap-2 mb-2">
                             <button onClick={handleLike}
@@ -173,7 +173,7 @@ export default function PostPage() {
                         </p>
                     </div>
 
-                    {/* Комментарии */}
+
                     <div className="border-t border-gray-100 px-3 py-2 max-h-60 overflow-y-auto">
                         {comments.length === 0 ? (
                             <p className="text-xs text-gray-400 text-center py-4">There are no comments yet</p>
@@ -216,7 +216,7 @@ export default function PostPage() {
                         )}
                     </div>
 
-                    {/* Форма комментария */}
+
                     <form onSubmit={handleComment}
                           className="border-t border-gray-100 flex items-center gap-2 px-3 py-2">
                         <input

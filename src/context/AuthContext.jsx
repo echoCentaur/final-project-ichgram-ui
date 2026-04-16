@@ -7,7 +7,7 @@ export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null)
     const [loading, setLoading] = useState(true)
 
-    // Нормализует пользователя — добавляет поле id если есть только _id
+
     const normalizeUser = (userData) => {
         if (!userData) return null
         return {

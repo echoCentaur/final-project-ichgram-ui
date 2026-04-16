@@ -13,7 +13,7 @@ export default function GoogleSuccessPage() {
 
         if (token) {
             localStorage.setItem('token', token)
-            // Получаем данные пользователя
+
             axios.get('/users/me', {
                 headers: { Authorization: `Bearer ${token}` }
             }).then(res => {

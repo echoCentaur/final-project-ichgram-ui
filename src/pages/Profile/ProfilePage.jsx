@@ -72,10 +72,10 @@ export default function ProfilePage() {
         <div className="bg-gray-50 min-h-screen">
             <div className="max-w-3xl mx-auto pt-6 px-4">
 
-                {/* Шапка профиля */}
+
                 <div className="flex items-center gap-8 mb-8 bg-white p-6 rounded border border-gray-200">
 
-                    {/* Аватар */}
+
                     <div className="w-24 h-24 rounded-full bg-gray-200 overflow-hidden flex-shrink-0">
                         {profile?.profile_image ? (
                             <img src={profile.profile_image} alt="avatar" className="w-full h-full object-cover" />
@@ -86,7 +86,7 @@ export default function ProfilePage() {
                         )}
                     </div>
 
-                    {/* Инфо */}
+
                     <div className="flex-1">
                         <div className="flex items-center gap-4 mb-4">
                             <h2 className="text-xl font-semibold">{profile?.username}</h2>
@@ -124,7 +124,7 @@ export default function ProfilePage() {
 
                 <div className="border-t border-gray-300 mb-4" />
 
-                {/* Сетка постов */}
+
                 {posts.length === 0 ? (
                     <div className="text-center text-gray-500 py-10">
                         <p className="text-4xl mb-3">📷</p>
