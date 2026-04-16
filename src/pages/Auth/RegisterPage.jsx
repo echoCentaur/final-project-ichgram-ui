@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
 import axios from '../../api/axios'
+import bannerImg from '../../assets/banner.png'
 
 export default function RegisterPage() {
     const [form, setForm] = useState({
@@ -24,7 +25,6 @@ export default function RegisterPage() {
         e.preventDefault()
         setError('')
         setLoading(true)
-
         try {
             const res = await axios.post('/auth/register', form)
             login(res.data.user, res.data.token)
@@ -36,51 +36,75 @@ export default function RegisterPage() {
         }
     }
 
+    const inputStyle = {
+        width: '268px',
+        height: '32px',
+        borderRadius: '4px',
+        border: '1px solid #dbdbdb',
+        background: '#fafafa',
+        padding: '0 10px',
+        fontSize: '13px',
+        outline: 'none',
+        boxSizing: 'border-box',
+    }
+
+    const btnStyle = {
+        width: '268px',
+        height: '32px',
+        borderRadius: '8px',
+        background: 'rgba(0, 149, 246, 1)',
+        border: 'none',
+        color: 'white',
+        fontWeight: '600',
+        fontSize: '14px',
+        cursor: 'pointer',
+        opacity: loading ? 0.5 : 1,
+    }
+
     return (
         <div className="flex items-center justify-center min-h-screen bg-gray-50">
             <div className="w-full max-w-sm">
 
-                <div className="bg-white border border-gray-200 rounded p-10 mb-3">
-                    <h1 className="text-4xl font-bold text-center mb-2"
-                        style={{ fontFamily: 'cursive' }}>
-                        ICHgram
-                    </h1>
+                <div className="bg-white border border-gray-200 rounded mb-3"
+                     style={{ padding: '32px 40px' }}>
+
+                    <img src={bannerImg} alt="ICHgram" className="w-full mb-2 object-contain" />
                     <p className="text-gray-500 text-center text-sm font-semibold mb-6">
-                        Регистрируйся, чтобы видеть фото друзей
+                        Sign up to see Photos and Videos from your friends
                     </p>
 
-                    <form onSubmit={handleSubmit} className="space-y-2">
+                    <form onSubmit={handleSubmit} className="flex flex-col gap-2 items-center">
                         <input
                             name="email"
                             type="email"
                             placeholder="Email"
                             value={form.email}
                             onChange={handleChange}
-                            className="w-full bg-gray-50 border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:border-gray-400"
+                            style={inputStyle}
                         />
                         <input
                             name="fullName"
                             type="text"
-                            placeholder="Полное имя"
+                            placeholder="Full Name"
                             value={form.fullName}
                             onChange={handleChange}
-                            className="w-full bg-gray-50 border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:border-gray-400"
+                            style={inputStyle}
                         />
                         <input
                             name="username"
                             type="text"
-                            placeholder="Имя пользователя"
+                            placeholder="User Name"
                             value={form.username}
                             onChange={handleChange}
-                            className="w-full bg-gray-50 border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:border-gray-400"
+                            style={inputStyle}
                         />
                         <input
                             name="password"
                             type="password"
-                            placeholder="Пароль"
+                            placeholder="Password"
                             value={form.password}
                             onChange={handleChange}
-                            className="w-full bg-gray-50 border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:border-gray-400"
+                            style={inputStyle}
                         />
 
                         {error && (
@@ -90,20 +114,19 @@ export default function RegisterPage() {
                         <button
                             type="submit"
                             disabled={loading}
-                            className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded py-2 text-sm mt-2 disabled:opacity-50"
+                            style={btnStyle}
                         >
-                            {loading ? 'Регистрация...' : 'Зарегистрироваться'}
+                            {loading ? 'Signing up...' : 'Sign up'}
                         </button>
                     </form>
                 </div>
 
                 <div className="bg-white border border-gray-200 rounded p-5 text-center text-sm">
-                    Уже есть аккаунт?{' '}
-                    <Link to="/login" className="text-blue-500 font-semibold">
-                        Войти
+                    Have an account?{' '}
+                    <Link to="/login" className="text-blue-500 font-semibold hover:underline">
+                        Sign Up
                     </Link>
                 </div>
-
             </div>
         </div>
     )

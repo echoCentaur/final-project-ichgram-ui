@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import axios from '../../api/axios'
 
 export default function ExplorePage() {
@@ -12,7 +13,7 @@ export default function ExplorePage() {
     const fetchPosts = async () => {
         try {
             const res = await axios.get('/search/explore')
-            setPosts(res.data)
+            setPosts(Array.isArray(res.data) ? res.data : [])
         } catch (err) {
             console.error(err)
         } finally {
@@ -22,7 +23,7 @@ export default function ExplorePage() {
 
     if (loading) return (
         <div className="flex items-center justify-center min-h-screen">
-            <p className="text-gray-500">Загрузка...</p>
+            <p className="text-gray-500">Loading...</p>
         </div>
     )
 
@@ -34,14 +35,15 @@ export default function ExplorePage() {
                 {posts.length === 0 ? (
                     <div className="text-center text-gray-500 py-10">
                         <p className="text-4xl mb-3">🔍</p>
-                        <p>Постов пока нет</p>
+                        <p>No posts</p>
                     </div>
                 ) : (
                     <div className="grid grid-cols-3 gap-1">
                         {posts.map(post => (
-                            <div
+                            <Link
                                 key={post._id}
-                                className="aspect-square bg-gray-200 overflow-hidden cursor-pointer hover:opacity-90"
+                                to={`/post/${post._id}`}
+                                className="aspect-square bg-gray-200 overflow-hidden cursor-pointer hover:opacity-90 block"
                             >
                                 {post.image ? (
                                     <img
@@ -54,7 +56,7 @@ export default function ExplorePage() {
                                         {post.text}
                                     </div>
                                 )}
-                            </div>
+                            </Link>
                         ))}
                     </div>
                 )}

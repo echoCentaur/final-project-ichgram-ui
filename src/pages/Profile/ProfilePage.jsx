@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate, Link } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
 import axios from '../../api/axios'
 
@@ -14,7 +14,7 @@ export default function ProfilePage() {
     const [followersCount, setFollowersCount] = useState(0)
     const [loading, setLoading] = useState(true)
 
-    const isMyProfile = user?.id === id
+    const isMyProfile = (user?.id || user?._id) === id
 
     useEffect(() => {
         fetchProfile()
@@ -36,7 +36,7 @@ export default function ProfilePage() {
     const fetchPosts = async () => {
         try {
             const res = await axios.get(`/posts/user/${id}`)
-            setPosts(res.data)
+            setPosts(Array.isArray(res.data) ? res.data : [])
         } catch (err) {
             console.error(err)
         }
@@ -45,8 +45,9 @@ export default function ProfilePage() {
     const fetchFollowers = async () => {
         try {
             const res = await axios.get(`/follow/${id}/followers`)
-            setFollowersCount(res.data.length)
-            setIsFollowing(res.data.some(f => f.follower._id === user?.id))
+            const data = Array.isArray(res.data) ? res.data : []
+            setFollowersCount(data.length)
+            setIsFollowing(data.some(f => f.follower?._id === user?.id))
         } catch (err) {
             console.error(err)
         }
@@ -77,11 +78,7 @@ export default function ProfilePage() {
                     {/* Аватар */}
                     <div className="w-24 h-24 rounded-full bg-gray-200 overflow-hidden flex-shrink-0">
                         {profile?.profile_image ? (
-                            <img
-                                src={profile.profile_image}
-                                alt="avatar"
-                                className="w-full h-full object-cover"
-                            />
+                            <img src={profile.profile_image} alt="avatar" className="w-full h-full object-cover" />
                         ) : (
                             <div className="w-full h-full flex items-center justify-center text-3xl text-gray-500">
                                 {profile?.username?.[0]?.toUpperCase()}
@@ -95,12 +92,12 @@ export default function ProfilePage() {
                             <h2 className="text-xl font-semibold">{profile?.username}</h2>
 
                             {isMyProfile ? (
-                                <button
-                                    onClick={() => navigate('/edit-profile')}
+                                <Link
+                                    to="/profile/edit"
                                     className="border border-gray-300 rounded px-4 py-1 text-sm font-semibold hover:bg-gray-50"
                                 >
                                     Редактировать
-                                </button>
+                                </Link>
                             ) : (
                                 <button
                                     onClick={handleFollow}
@@ -115,26 +112,16 @@ export default function ProfilePage() {
                             )}
                         </div>
 
-                        {/* Статистика */}
                         <div className="flex gap-6 mb-3">
-                            <span className="text-sm">
-                                <strong>{posts.length}</strong> публикаций
-                            </span>
-                            <span className="text-sm">
-                                <strong>{followersCount}</strong> подписчиков
-                            </span>
+                            <span className="text-sm"><strong>{posts.length}</strong> публикаций</span>
+                            <span className="text-sm"><strong>{followersCount}</strong> подписчиков</span>
                         </div>
 
-                        {profile?.fullName && (
-                            <p className="text-sm font-semibold">{profile.fullName}</p>
-                        )}
-                        {profile?.bio && (
-                            <p className="text-sm">{profile.bio}</p>
-                        )}
+                        {profile?.fullName && <p className="text-sm font-semibold">{profile.fullName}</p>}
+                        {profile?.bio && <p className="text-sm">{profile.bio}</p>}
                     </div>
                 </div>
 
-                {/* Разделитель */}
                 <div className="border-t border-gray-300 mb-4" />
 
                 {/* Сетка постов */}
@@ -146,22 +133,19 @@ export default function ProfilePage() {
                 ) : (
                     <div className="grid grid-cols-3 gap-1">
                         {posts.map(post => (
-                            <div
+                            <Link
                                 key={post._id}
-                                className="aspect-square bg-gray-200 overflow-hidden cursor-pointer hover:opacity-90"
+                                to={`/post/${post._id}`}
+                                className="aspect-square bg-gray-200 overflow-hidden cursor-pointer hover:opacity-90 block"
                             >
                                 {post.image ? (
-                                    <img
-                                        src={post.image}
-                                        alt="post"
-                                        className="w-full h-full object-cover"
-                                    />
+                                    <img src={post.image} alt="post" className="w-full h-full object-cover" />
                                 ) : (
                                     <div className="w-full h-full flex items-center justify-center text-gray-400 text-sm p-2 text-center">
                                         {post.text}
                                     </div>
                                 )}
-                            </div>
+                            </Link>
                         ))}
                     </div>
                 )}

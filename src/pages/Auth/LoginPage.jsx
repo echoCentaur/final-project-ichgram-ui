@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
 import axios from '../../api/axios'
+import phonesImg from '../../assets/phones.png'
+import bannerImg from '../../assets/banner.png'
 
 export default function LoginPage() {
     const [email, setEmail] = useState('')
@@ -16,7 +18,6 @@ export default function LoginPage() {
         e.preventDefault()
         setError('')
         setLoading(true)
-
         try {
             const res = await axios.post('/auth/login', { email, password })
             login(res.data.user, res.data.token)
@@ -28,74 +29,102 @@ export default function LoginPage() {
         }
     }
 
+    const inputStyle = {
+        width: '268px',
+        height: '32px',
+        borderRadius: '4px',
+        border: '1px solid #dbdbdb',
+        background: '#fafafa',
+        padding: '0 10px',
+        fontSize: '13px',
+        outline: 'none',
+        boxSizing: 'border-box',
+    }
+
+    const btnStyle = {
+        width: '268px',
+        height: '32px',
+        borderRadius: '8px',
+        background: 'rgba(0, 149, 246, 1)',
+        border: 'none',
+        color: 'white',
+        fontWeight: '600',
+        fontSize: '14px',
+        cursor: 'pointer',
+        opacity: loading ? 0.5 : 1,
+    }
+
     return (
-        <div className="flex items-center justify-center min-h-screen bg-gray-50">
-            <div className="w-full max-w-sm">
+        <div className="flex min-h-screen bg-gray-50 items-center justify-center px-4">
+            <div className="flex items-center w-full max-w-3xl" style={{ gap: '40px' }}>
 
-                <div className="bg-white border border-gray-200 rounded p-10 mb-3">
-                    <h1 className="text-4xl font-bold text-center mb-8"
-                        style={{ fontFamily: 'cursive' }}>
-                        ICHgram
-                    </h1>
+                {/* Картинка телефонов — слева */}
+                <div className="hidden lg:block flex-1">
+                    <img
+                        src={phonesImg}
+                        alt="ICHgram phones"
+                        className="w-full object-contain"
+                    />
+                </div>
 
-                    <form onSubmit={handleSubmit} className="space-y-2">
-                        <input
-                            type="email"
-                            placeholder="Email"
-                            value={email}
-                            onChange={e => setEmail(e.target.value)}
-                            className="w-full bg-gray-50 border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:border-gray-400"
-                        />
-                        <input
-                            type="password"
-                            placeholder="Пароль"
-                            value={password}
-                            onChange={e => setPassword(e.target.value)}
-                            className="w-full bg-gray-50 border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:border-gray-400"
-                        />
+                {/* Форма — справа */}
+                <div className="flex-shrink-0">
+                    <div className="bg-white border border-gray-200 rounded mb-3"
+                         style={{ padding: '32px 40px' }}>
 
-                        {error && (
-                            <p className="text-red-500 text-xs text-center">{error}</p>
-                        )}
+                        <img src={bannerImg} alt="ICHgram" className="w-full mb-6 object-contain" />
 
-                        <button
-                            type="submit"
-                            disabled={loading}
-                            className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded py-2 text-sm mt-2 disabled:opacity-50"
-                        >
-                            {loading ? 'Вход...' : 'Войти'}
-                        </button>
-                    </form>
+                        <form onSubmit={handleSubmit} className="flex flex-col gap-2 items-center">
+                            <input
+                                type="email"
+                                placeholder="Email"
+                                value={email}
+                                onChange={e => setEmail(e.target.value)}
+                                required
+                                style={inputStyle}
+                            />
+                            <input
+                                type="password"
+                                placeholder="Passwort"
+                                value={password}
+                                onChange={e => setPassword(e.target.value)}
+                                required
+                                style={inputStyle}
+                            />
+                            {error && <p className="text-red-500 text-xs text-center">{error}</p>}
+                            <button
+                                type="submit"
+                                disabled={loading}
+                                style={btnStyle}
+                            >
+                                {loading ? 'Logging up...' : 'Log In'}
+                            </button>
+                        </form>
 
-                    {/* Разделитель */}
-                    <div className="flex items-center my-4">
-                        <div className="flex-1 border-t border-gray-300"></div>
-                        <span className="px-4 text-gray-500 text-sm font-semibold">ИЛИ</span>
-                        <div className="flex-1 border-t border-gray-300"></div>
+                        <div className="flex items-center my-4" style={{ width: '268px' }}>
+                            <div className="flex-1 border-t border-gray-300" />
+                            <span className="px-4 text-xs text-gray-500 font-semibold">OR</span>
+                            <div className="flex-1 border-t border-gray-300" />
+                        </div>
+
+                        <a href="https://ichgram.katzenkoenig.lol/api/auth/google"
+                           className="flex items-center justify-center gap-2 text-blue-900 font-semibold text-sm hover:opacity-80 transition"
+                           style={{ width: '268px' }}>
+                            <img src="https://www.google.com/favicon.ico" className="w-4 h-4" alt="" />
+                            Log in an Google
+                        </a>
                     </div>
 
-                    {/* Кнопка Google */}
+                    <div className="bg-white border border-gray-200 rounded p-5 text-center text-sm"
+                         style={{ width: '348px' }}>
+                        Don't have an account?{' '}
+                        <Link to="/register" className="text-blue-500 font-semibold hover:underline">
+                            Sign up
+                        </Link>
+                    </div>
+                </div>
 
-                    <a href="http://localhost:8008/api/auth/google"
-                    className="w-full flex items-center justify-center gap-2 border border-gray-300 rounded py-2 text-sm font-semibold hover:bg-gray-50"
-                    >
-                    <img
-                        src="https://www.google.com/favicon.ico"
-                        alt="Google"
-                        className="w-4 h-4"
-                    />
-                    Войти через Google
-                </a>
             </div>
-
-            <div className="bg-white border border-gray-200 rounded p-5 text-center text-sm">
-                Нет аккаунта?{' '}
-                <Link to="/register" className="text-blue-500 font-semibold">
-                    Зарегистрироваться
-                </Link>
-            </div>
-
         </div>
-</div>
-)
+    )
 }

@@ -10,6 +10,9 @@ import Layout from './components/Layout/Layout'
 import ExplorePage from './pages/Explore/ExplorePage'
 import AIPage from './pages/AI/AIPage'
 import GoogleSuccessPage from './pages/Auth/GoogleSuccessPage'
+import PostPage from './pages/Post/PostPage'
+import EditProfilePage from './pages/Profile/EditProfilePage'
+import NotFound from './pages/NotFound/NotFound.jsx'
 
 
 const PrivateRoute = ({ children }) => {
@@ -65,6 +68,9 @@ function AppRoutes() {
             <Route path="/ai" element={
                 <PrivateRoute><AIPage /></PrivateRoute>
             } />
+            <Route path="/post/:id" element={<PrivateRoute><PostPage /></PrivateRoute>} />
+            <Route path="/profile/edit" element={<PrivateRoute><EditProfilePage /></PrivateRoute>} />
+            <Route path="*" element={<NotFound />} />
         </Routes>
     )
 }
